@@ -22,8 +22,6 @@ int status = WL_IDLE_STATUS;
 WiFiServer server(80); //port 80
 WiFiClient client = server.available();
 
-
-
 void setup() {
   Serial.begin(9600);
   while(!Serial);
@@ -98,7 +96,7 @@ float readTemperatureFahrenheit()
   temp = (temp * 1.8) +32; // converting to farenheit
   if (temp < 0)
   {
-    return -1.0;
+    return -1.0; //error
   }
   return temp;
 }

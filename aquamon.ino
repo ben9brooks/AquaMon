@@ -15,8 +15,8 @@ DallasTemperature sensors(&oneWire);
 LiquidCrystal_I2C lcd(0x27,16,2);  // set the LCD address to 0x27 for a 16 chars and 2 line display
 
 // WiFi Setup
-char ssid[] = "richard";
-char pass[] = "lawrencemeyer";
+char ssid[] = "ENTER WIFI";
+char pass[] = "ENTER PASSWORD";
 int keyIndex = 0; 
 int status = WL_IDLE_STATUS;
 WiFiServer server(80); //port 80
@@ -27,10 +27,6 @@ void setup() {
   while(!Serial);
 
   sensors.begin();
-
-  // RGB LED is connected through WiFi library, cannot be written just through analog.
-  WiFiDrv::pinMode(25, OUTPUT);
-  WiFiDrv::pinMode(26, OUTPUT);
 
   enable_WiFi();
   connect_WiFi();
@@ -55,38 +51,6 @@ void loop() {
   //Serial.print("\n");
 }
 
-
-void printCircle(WiFiClient& client, float displayVal, int sensor)
-{
-  switch(sensor)
-  {
-    case PH:
-      client.print("<div class='circle' data-value='high'>100</div>");
-      break;
-
-    case TEMP:
-      client.print("<div class='circle'");
-      if (displayVal > 80.0)
-      {
-        client.print("data-value='low'>");
-      }
-      else if (displayVal < 60.0)
-      {
-        client.print("data-value='low'>");
-      }
-      else
-      {
-        client.print("data-value='high'>");
-      }
-      client.print(displayVal);
-      client.print("</div>");
-      break;
-    case TDS:
-      client.print("<div class='circle' data-value='low'>50</div>");
-      break;
-  }
-  
-}
 
 float readTemperatureFahrenheit()
 {
